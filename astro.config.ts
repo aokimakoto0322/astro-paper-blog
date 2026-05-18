@@ -19,8 +19,21 @@ import config from "./astro-paper.config";
 
 import cloudflare from "@astrojs/cloudflare";
 
+// ★【追加】現在実行しているコマンドがローカル開発（dev）かどうかを判定します
+const isDev = process.argv.includes("dev");
+
 export default defineConfig({
   site: config.site.url,
+
+  // ★【追加】ローカル開発時は 'static'、本番ビルド時は 'server'（SSR）に自動で切り替えます
+  output: isDev ? "static" : "server",
+
+  // ★【追加】Sharpのエラーを防ぐため、画像処理をパススルー（そのまま出力）に設定します
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/noop",
+    },
+  },
 
   integrations: [
     mdx(),
@@ -83,5 +96,6 @@ export default defineConfig({
     svgOptimizer: svgoOptimizer(),
   },
 
-  adapter: cloudflare(),
+  // ★【修正】ローカル開発（isDevがtrue）の時はアダプターをオフ（undefined）にします
+  adapter: isDev ? undefined : cloudflare(),
 });
