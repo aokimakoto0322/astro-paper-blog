@@ -31,7 +31,7 @@ export default defineConfig({
   // ★【追加】Sharpのエラーを防ぐため、画像処理をパススルー（そのまま出力）に設定します
   image: {
     service: {
-      entrypoint: "astro/assets/services/noop",
+      entrypoint: "astro/assets/services/passthrough",
     },
   },
 
