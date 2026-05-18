@@ -68,6 +68,10 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // ★【追加】Cloudflare上で「node:fs」などのNode.jsモジュールを使えるように明示します
+    ssr: {
+      external: ['node:fs', 'node:path', 'node:url'],
+    },
   },
 
   fonts: [
