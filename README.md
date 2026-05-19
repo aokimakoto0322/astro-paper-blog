@@ -164,4 +164,12 @@ Licensed under the MIT License, Copyright © 2026
 ---
 
 Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contributors](https://github.com/satnaing/astro-paper/graphs/contributors).
+
 # astro-paper-blog
+## Docker初期環境構築
+1. パッケージのインストール（node_modulesのインストール）  
+`docker compose run --rm app npm install` 
+2. コンテナの起動   
+`docker compose up -d`
+3. 起動確認  
+`http://localhost:4321/`

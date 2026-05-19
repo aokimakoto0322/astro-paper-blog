@@ -17,16 +17,9 @@ import {
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
 
-// ★【修正】CloudflareのSSRアダプターは使わないため、インポートをコメントアウトします
-// import cloudflare from "@astrojs/cloudflare";
-
 export default defineConfig({
   site: config.site.url,
-
-  // ★【修正】本番も開発も、常に安全な『static（完全静的サイト）』モードにします
   output: "static",
-
-  // ★【修正】静的ビルドの時は、元の画像処理（noop）のままで安全に動くようになります
   image: {
     service: {
       entrypoint: "astro/assets/services/noop",
@@ -66,7 +59,6 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    // 静的ビルド時にはパソコン側で処理されるため、ここの制限も気にする必要がなくなります
   },
 
   fonts: [
@@ -95,6 +87,5 @@ export default defineConfig({
     svgOptimizer: svgoOptimizer(),
   },
 
-  // ★【修正】SSR用のアダプター（cloudflare）を完全に外して、undefined（なし）にします
   adapter: undefined,
 });
