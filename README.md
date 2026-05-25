@@ -166,10 +166,26 @@ Licensed under the MIT License, Copyright © 2026
 Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contributors](https://github.com/satnaing/astro-paper/graphs/contributors).
 
 # astro-paper-blog
+
 ## Docker初期環境構築
+
 1. パッケージのインストール（node_modulesのインストール）  
-`docker compose run --rm app npm install` 
-2. コンテナの起動   
-`docker compose up -d`
+   `docker compose run --rm app npm install`
+2. コンテナの起動  
+   `docker compose up -d`
 3. 起動確認  
-`http://localhost:4321/`
+   `http://localhost:4321/`
+
+## コード整形
+
+1. VSCodeの[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscodeeslint)拡張機能を入れる
+2. VSCodeの[Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)拡張機能を入れる
+3. コードを入力し、保存した時に整形されれば成功！（最後の行とかに改行とかが入る）
+
+## ブランチルール
+
+| ブランチ       | 役割                     | マージ先   |
+| :------------- | :----------------------- | :--------- |
+| **main**       | 本番環境（公開用）       | なし       |
+| **develop**    | 開発環境（統合用）       | main へ    |
+| **feature/\*** | 作業ブランチ（機能開発） | develop へ |
