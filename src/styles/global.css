@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+body {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border outline-accent/75;
