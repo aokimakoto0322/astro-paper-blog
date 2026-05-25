@@ -71,7 +71,7 @@
     }
 
     blockquote {
-      @apply border-s-accent/80 text-muted-foreground wrap-break-word bg-muted/35 rounded-e-md py-1 opacity-95;
+      @apply border-s-accent/80 text-muted-foreground bg-muted/35 rounded-e-md py-1 wrap-break-word opacity-95;
     }
 
     details {

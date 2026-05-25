@@ -30,8 +30,12 @@ const t = useTranslations(locale);
       >
         <IconArrowLeft class="inline-block flex-none rtl:rotate-180" />
         <div>
-          <span class="text-muted-foreground text-xs">{t.post.previousPost}</span>
-          <div class="text-foreground text-sm font-medium">{prevPost.title}</div>
+          <span class="text-muted-foreground text-xs">
+            {t.post.previousPost}
+          </span>
+          <div class="text-foreground text-sm font-medium">
+            {prevPost.title}
+          </div>
         </div>
       </a>
     )
@@ -44,7 +48,9 @@ const t = useTranslations(locale);
       >
         <div>
           <span class="text-muted-foreground text-xs">{t.post.nextPost}</span>
-          <div class="text-foreground text-sm font-medium">{nextPost.title}</div>
+          <div class="text-foreground text-sm font-medium">
+            {nextPost.title}
+          </div>
         </div>
         <IconArrowRight class="inline-block flex-none rtl:rotate-180" />
       </a>
