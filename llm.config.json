@@ -1,8 +1,8 @@
 {
   "enabled": true,
   "output": {
-    "format": ["txt", "json"],
-    "filename": "llm"
+    "format": ["txt"],
+    "filename": "llm.txt"
   },
   "include": {
     "pages": true,
