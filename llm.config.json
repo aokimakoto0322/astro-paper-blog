@@ -1,0 +1,35 @@
+{
+  "enabled": true,
+  "output": {
+    "format": ["txt", "json"],
+    "filename": "llm"
+  },
+  "include": {
+    "pages": true,
+    "headings": true,
+    "paragraphs": true,
+    "lists": true,
+    "tables": false,
+    "codeBlocks": true,
+    "meta": {
+      "title": true,
+      "description": true,
+      "keywords": false
+    }
+  },
+  "exclude": {
+    "paths": [],
+    "selectors": []
+  },
+  "safety": {
+    "stripEmails": true,
+    "stripPhoneNumbers": true,
+    "stripForms": true,
+    "stripScripts": true
+  },
+  "purpose": {
+    "llmTraining": false,
+    "ragIndexing": true,
+    "chatGrounding": true
+  }
+}

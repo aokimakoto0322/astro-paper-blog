@@ -16,6 +16,7 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
+import astroLlm from "astro-llm";
 
 export default defineConfig({
   site: config.site.url,
@@ -32,11 +33,12 @@ export default defineConfig({
       filter: page =>
         config.features?.showArchives !== false || !page.endsWith("/archives/"),
     }),
+    astroLlm()
   ],
 
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+    locales: ["en", "ja"],
+    defaultLocale: "ja",
     routing: {
       prefixDefaultLocale: false,
     },

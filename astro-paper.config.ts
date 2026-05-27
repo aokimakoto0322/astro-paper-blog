@@ -2,14 +2,13 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    url: "https://astro-paper.pages.dev/",
-    title: "AstroPaper",
-    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
-    author: "Sat Naing",
-    profile: "https://satna.ing",
+    url: "https://humansworks.com/",
+    title: "Our Sandbox",
+    description: "プログラミングや生活に役立つことを残すブログです。",
+    author: "管理人",
     ogImage: "default-og.jpg",
-    lang: "en",
-    timezone: "Asia/Bangkok",
+    lang: "ja",
+    timezone: "Asia/Tokyo",
     dir: "ltr",
   },
   posts: {
