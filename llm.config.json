@@ -2,7 +2,7 @@
   "enabled": true,
   "output": {
     "format": ["txt"],
-    "filename": "llm"
+    "filename": "llm.txt"
   },
   "include": {
     "pages": true,
