@@ -25,15 +25,15 @@ body {
 }
 
 @utility max-w-app {
-  @apply max-w-3xl;
+  @apply max-w-2xl;
 }
 
 @utility app-layout {
-  @apply max-w-app mx-auto w-full px-4;
+  @apply max-w-app mx-auto w-full px-5 sm:px-6;
 }
 
 @utility active-nav {
-  @apply underline decoration-wavy decoration-2 underline-offset-8;
+  @apply text-accent decoration-accent underline decoration-2 underline-offset-6;
 }
 
 :target {

@@ -18,24 +18,32 @@ const t = useTranslations(Astro.currentLocale);
 {
   page.lastPage > 1 && (
     <nav
-      class="mt-auto mb-8 flex justify-center gap-4"
+      class="text-muted-foreground mt-auto mb-6 flex items-center justify-center gap-3 text-sm"
       role="navigation"
       aria-label="Pagination Navigation"
     >
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        class:list={["select-none", { "opacity-50": !page.url.prev }]}
+        class:list={[
+          "border-border bg-background hover:bg-muted rounded-md border px-3 py-1.5 transition-colors select-none",
+          { "opacity-50": !page.url.prev },
+        ]}
         aria-label={t.a11y.goToPreviousPage}
       >
         <IconArrowLeft class="inline-block rtl:rotate-180" />
         {t.pagination.prev}
       </LinkButton>
-      {page.currentPage} / {page.lastPage}
+      <span class="text-foreground min-w-16 text-center font-medium">
+        {page.currentPage} / {page.lastPage}
+      </span>
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        class:list={["select-none", { "opacity-50": !page.url.next }]}
+        class:list={[
+          "border-border bg-background hover:bg-muted rounded-md border px-3 py-1.5 transition-colors select-none",
+          { "opacity-50": !page.url.next },
+        ]}
         aria-label={t.a11y.goToNextPage}
       >
         {t.pagination.next}

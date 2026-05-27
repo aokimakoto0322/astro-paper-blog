@@ -13,12 +13,14 @@ const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 const { title, description, ...props } = data;
 ---
 
-<li class="my-6">
+<li
+  class="border-border/70 hover:bg-muted/30 my-3 rounded-lg border p-4 transition-colors"
+>
   <a
     href={getPostUrl(id, filePath, Astro.currentLocale)}
     class:list={[
-      "text-accent inline-block text-lg font-medium",
-      "decoration-dashed underline-offset-4 hover:underline",
+      "text-foreground inline-block text-base font-semibold sm:text-lg",
+      "decoration-accent hover:text-accent decoration-2 underline-offset-4 hover:underline",
       "focus-visible:no-underline focus-visible:underline-offset-0",
     ]}
   >
@@ -27,5 +29,5 @@ const { title, description, ...props } = data;
     </Heading>
   </a>
   <Datetime {...props} />
-  <p>{description}</p>
+  <p class="text-muted-foreground mt-1 text-sm sm:text-base">{description}</p>
 </li>
