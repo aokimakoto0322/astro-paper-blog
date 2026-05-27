@@ -1,7 +1,7 @@
 {
   "enabled": true,
   "output": {
-    "format": ["txt", "json"],
+    "format": ["txt"],
     "filename": "llm"
   },
   "include": {
