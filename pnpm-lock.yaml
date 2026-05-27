@@ -26,6 +26,9 @@ importers:
       astro:
         specifier: ^6.3.3
         version: 6.3.3(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.8.3)
+      astro-llm:
+        specifier: ^0.2.0
+        version: 0.2.0(astro@6.3.3(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.8.3))
       dayjs:
         specifier: ^1.11.20
         version: 1.11.20
@@ -1350,6 +1353,11 @@ packages:
   astro-eslint-parser@1.4.0:
     resolution: {integrity: sha512-+QDcgc7e+au6EZ0YjMmRRjNoQo5bDMlaR45aWDoFsuxQTCM9qmCHRoiKJPELgckJ8Wmr7vcfpa9eCDHBFh6G4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-llm@0.2.0:
+    resolution: {integrity: sha512-t2eHh9AOgNtuJE32S7YvnGJ7SRtGk3KyvZrYIOX8HaMf9hUSUr26FIHps1lErTAdexvTICqFC1nyVoX8SBEcRA==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   astro@6.3.3:
     resolution: {integrity: sha512-wvLIZQYbBZt6U8gyflBW4SLBypaqdwLZUH93rT3oT53cmQ0bTGubvMAGjqBRoheOYzYcTJZtW6czztzbu4kQ5g==}
@@ -4253,6 +4261,10 @@ snapshots:
       semver: 7.7.4
     transitivePeerDependencies:
       - supports-color
+
+  astro-llm@0.2.0(astro@6.3.3(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.8.3)):
+    dependencies:
+      astro: 6.3.3(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.8.3)
 
   astro@6.3.3(@types/node@24.12.2)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.2)(yaml@2.8.3):
     dependencies:
