@@ -33,7 +33,7 @@ export default defineConfig({
       filter: page =>
         config.features?.showArchives !== false || !page.endsWith("/archives/"),
     }),
-    astroLlm()
+    astroLlm(),
   ],
 
   i18n: {
