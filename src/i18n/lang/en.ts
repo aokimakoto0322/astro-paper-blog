@@ -29,8 +29,8 @@ export default {
   },
   home: {
     socialLinks: "Social Links",
-    featured: "Featured",
-    recentPosts: "Recent Posts",
+    featured: "注目記事",
+    recentPosts: "新着記事",
     allPosts: "All Posts",
   },
   footer: {
