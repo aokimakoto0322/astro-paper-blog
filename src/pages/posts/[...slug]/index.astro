@@ -91,6 +91,7 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+const displayImage = ogImageUrl;
 ---
 
 <PostLayout
@@ -111,9 +112,9 @@ const ogImage = ogImageUrl
     data-pagefind-body
   >
     {
-      ogImage && (
+      displayImage && (
         <img
-          src={ogImage}
+          src={displayImage}
           alt={title}
           class="border-border mb-6 aspect-[16/9] w-full rounded-2xl border object-cover"
           loading="eager"
