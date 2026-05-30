@@ -31,7 +31,7 @@ export default {
     socialLinks: "Social Links",
     featured: "注目記事",
     recentPosts: "新着記事",
-    allPosts: "All Posts",
+    allPosts: "すべての記事",
   },
   footer: {
     copyright: "Copyright",
