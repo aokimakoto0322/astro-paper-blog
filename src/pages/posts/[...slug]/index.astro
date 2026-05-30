@@ -91,6 +91,7 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+const displayImage = ogImageUrl;
 ---
 
 <PostLayout
@@ -110,6 +111,18 @@ const ogImage = ogImageUrl
     class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
     data-pagefind-body
   >
+    {
+      displayImage && (
+        <img
+          src={displayImage}
+          alt={title}
+          class="border-border mb-6 aspect-[16/9] w-full rounded-2xl border object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )
+    }
+
     <h1
       style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
       class="text-foreground inline-block text-2xl font-bold tracking-tight sm:text-3xl"
