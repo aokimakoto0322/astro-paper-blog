@@ -10,24 +10,38 @@ type Props = {
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
-const { title, description, ...props } = data;
+const { title, description, ogImage, ...props } = data;
 ---
 
 <li
-  class="border-border/70 hover:bg-muted/30 my-3 rounded-lg border p-4 transition-colors"
+  class="border-border/70 hover:bg-muted/30 my-3 overflow-hidden rounded-lg border transition-colors"
 >
   <a
     href={getPostUrl(id, filePath, Astro.currentLocale)}
-    class:list={[
-      "text-foreground inline-block text-base font-semibold sm:text-lg",
-      "decoration-accent hover:text-accent decoration-2 underline-offset-4 hover:underline",
-      "focus-visible:no-underline focus-visible:underline-offset-0",
-    ]}
+    class="group block h-full focus-visible:outline-none"
   >
-    <Heading transition:name={slugifyStr(title.replaceAll(".", "-"))}>
-      {title}
-    </Heading>
+    {
+      ogImage && (
+        <img
+          src={typeof ogImage === "string" ? ogImage : ogImage.src}
+          alt={title}
+          class="h-44 w-full object-cover sm:h-52"
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    }
+    <div class="p-4">
+      <Heading
+        transition:name={slugifyStr(title.replaceAll(".", "-"))}
+        class="text-foreground group-hover:text-accent text-base font-semibold sm:text-lg"
+      >
+        {title}
+      </Heading>
+      <Datetime {...props} />
+      <p class="text-muted-foreground mt-1 text-sm sm:text-base">
+        {description}
+      </p>
+    </div>
   </a>
-  <Datetime {...props} />
-  <p class="text-muted-foreground mt-1 text-sm sm:text-base">{description}</p>
 </li>

@@ -4,6 +4,7 @@ description: このブログの最初の投稿です。AstroPaperテーマの基
 pubDatetime: 2026-05-24T09:00:00+09:00
 featured: true
 draft: false
+ogImage: ../../assets/images/posts/my-first-post.png
 tags:
   - はじめに
   - Markdown
