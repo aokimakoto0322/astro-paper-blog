@@ -195,29 +195,29 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 
 ### 投稿 (`src/content/posts/*.md|*.mdx`) の項目
 
-| 項目 | 必須 | 型 | 値の例 | 説明 |
-| :--- | :--- | :--- | :--- | :--- |
-| `title` | 必須 | `string` | `はじめての投稿` | 記事タイトル |
-| `description` | 必須 | `string` | `この投稿ではMarkdownの基本を紹介します。` | 記事の概要（一覧・OGなどで使用） |
-| `pubDatetime` | 必須 | `date` | `2026-05-30T09:00:00+09:00` | 公開日時（ISO 8601推奨） |
-| `author` | 任意 | `string` | `管理人` | 未指定時はサイト設定の著者名 |
-| `modDatetime` | 任意 | `date \| null` | `2026-05-31T10:30:00+09:00` | 更新日時 |
-| `featured` | 任意 | `boolean` | `true` | `true` でトップの注目記事へ |
-| `draft` | 任意 | `boolean` | `false` | `true` の間は下書き扱いになり、記事一覧や記事ページに表示されない |
-| `tags` | 任意 | `string[]` | `['Astro', 'Markdown']` | 未指定時は `['others']` |
-| `ogImage` | 任意 | `string \| image` | `/images/posts/sample-og.jpg` | OGP画像 |
-| `canonicalURL` | 任意 | `string` | `https://example.com/posts/my-first-post/` | 正規URL |
-| `hideEditPost` | 任意 | `boolean` | `false` | 記事ページの編集リンクを非表示 |
-| `timezone` | 任意 | `string` | `Asia/Tokyo` | 日付表示用タイムゾーン |
+| 項目           | 必須 | 型                | 値の例                                     | 説明                                                              |
+| :------------- | :--- | :---------------- | :----------------------------------------- | :---------------------------------------------------------------- |
+| `title`        | 必須 | `string`          | `はじめての投稿`                           | 記事タイトル                                                      |
+| `description`  | 必須 | `string`          | `この投稿ではMarkdownの基本を紹介します。` | 記事の概要（一覧・OGなどで使用）                                  |
+| `pubDatetime`  | 必須 | `date`            | `2026-05-30T09:00:00+09:00`                | 公開日時（ISO 8601推奨）                                          |
+| `author`       | 任意 | `string`          | `管理人`                                   | 未指定時はサイト設定の著者名                                      |
+| `modDatetime`  | 任意 | `date \| null`    | `2026-05-31T10:30:00+09:00`                | 更新日時                                                          |
+| `featured`     | 任意 | `boolean`         | `true`                                     | `true` でトップの注目記事へ                                       |
+| `draft`        | 任意 | `boolean`         | `false`                                    | `true` の間は下書き扱いになり、記事一覧や記事ページに表示されない |
+| `tags`         | 任意 | `string[]`        | `['Astro', 'Markdown']`                    | 未指定時は `['others']`                                           |
+| `ogImage`      | 任意 | `string \| image` | `/images/posts/sample-og.jpg`              | OGP画像                                                           |
+| `canonicalURL` | 任意 | `string`          | `https://example.com/posts/my-first-post/` | 正規URL                                                           |
+| `hideEditPost` | 任意 | `boolean`         | `false`                                    | 記事ページの編集リンクを非表示                                    |
+| `timezone`     | 任意 | `string`          | `Asia/Tokyo`                               | 日付表示用タイムゾーン                                            |
 
 ### 固定ページ (`src/content/pages/*.md|*.mdx`) の項目
 
-| 項目 | 必須 | 型 | 値の例 | 説明 |
-| :--- | :--- | :--- | :--- | :--- |
-| `title` | 必須 | `string` | `About` | ページタイトル |
-| `description` | 任意 | `string` | `このサイトについて` | ページ概要 |
-| `ogImage` | 任意 | `string` | `/default-og.jpg` | OGP画像 |
-| `canonicalURL` | 任意 | `string` | `https://example.com/about/` | 正規URL |
+| 項目           | 必須 | 型       | 値の例                       | 説明           |
+| :------------- | :--- | :------- | :--------------------------- | :------------- |
+| `title`        | 必須 | `string` | `About`                      | ページタイトル |
+| `description`  | 任意 | `string` | `このサイトについて`         | ページ概要     |
+| `ogImage`      | 任意 | `string` | `/default-og.jpg`            | OGP画像        |
+| `canonicalURL` | 任意 | `string` | `https://example.com/about/` | 正規URL        |
 
 ### 投稿テンプレート（最小）
 
