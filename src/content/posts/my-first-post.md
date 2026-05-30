@@ -3,7 +3,7 @@ title: はじめての投稿
 description: このブログの最初の投稿です。AstroPaperテーマの基本的なMarkdown記法を試してみます。
 pubDatetime: 2026-05-24T09:00:00+09:00
 featured: true
-draft: true
+draft: false
 tags:
   - はじめに
   - Markdown
