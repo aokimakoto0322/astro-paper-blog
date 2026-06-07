@@ -27,7 +27,6 @@ try {
   description = result.ogDescription || result.twitterDescription || '';
   image = result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || '';
 } catch (error) {
-  console.error(`[LinkCard] データの取得に失敗しました: ${url}`, error);
   title = url;
 }
 ---
