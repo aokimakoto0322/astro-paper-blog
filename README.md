@@ -167,6 +167,10 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 3. 起動確認  
    `http://localhost:4321/`
 
+## Lintエラー修正
+
+- `pnpm run format`
+
 ## プライグインのインストール
 
 - `pnpm install [プラグイン名]`
