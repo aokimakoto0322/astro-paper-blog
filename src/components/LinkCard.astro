@@ -1,6 +1,6 @@
 ---
 // src/components/LinkCard.astro
-import ogs from 'open-graph-scraper';
+import ogs from "open-graph-scraper";
 
 interface Props {
   url: string;
@@ -8,31 +8,43 @@ interface Props {
 
 const { url } = Astro.props;
 
-let title = '';
-let description = '';
-let image = '';
-let hostname = '';
+let title = "";
+let description = "";
+let image = "";
+let hostname = "";
 
 try {
   const urlObj = new URL(url);
   hostname = urlObj.hostname;
 
   // 遷移先のURLの情報を自動で取得（タイムアウト設定を追加してビルド停止を防止）
-  const { result } = await ogs({ 
+  const { result } = await ogs({
     url: url,
-    timeout: 5000 
+    timeout: 5000,
   });
 
-  title = result.ogTitle || result.twitterTitle || '無題のリンク';
-  description = result.ogDescription || result.twitterDescription || '';
-  image = result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || '';
+  title = result.ogTitle || result.twitterTitle || "無題のリンク";
+  description = result.ogDescription || result.twitterDescription || "";
+  image = result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || "";
 } catch (error) {
   title = url;
 }
 ---
 
 <a href={url} target="_blank" rel="noopener noreferrer" class="link-card">
-  {image && <img src={image} alt="" role="presentation" class="card-image" loading="lazy" width="150" height="100" />}
+  {
+    image && (
+      <img
+        src={image}
+        alt=""
+        role="presentation"
+        class="card-image"
+        loading="lazy"
+        width="150"
+        height="100"
+      />
+    )
+  }
   <div class="card-content">
     <span class="card-title">{title}</span>
     {description && <p class="card-description">{description}</p>}

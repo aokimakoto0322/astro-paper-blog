@@ -168,6 +168,7 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
    `http://localhost:4321/`
 
 ## プライグインのインストール
+
 - `pnpm install [プラグイン名]`
   - dockerコンテナ内で実行する
 
@@ -204,8 +205,8 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 | `canonicalURL` | 任意 | `string`          | `https://example.com/posts/my-first-post/` | 正規URL                                                           |
 | `hideEditPost` | 任意 | `boolean`         | `false`                                    | 記事ページの編集リンクを非表示                                    |
 | `timezone`     | 任意 | `string`          | `Asia/Tokyo`                               | 日付表示用タイムゾーン                                            |
-| `series`      | 任意 | `string`          | `series1`                               | もしし連載記事を書きたい場合のシリーズ名                                       |
-| `seriesOrder`  | 任意 | `string`          | `1`                                   | 連載の順番                                       |
+| `series`       | 任意 | `string`          | `series1`                                  | もしし連載記事を書きたい場合のシリーズ名                          |
+| `seriesOrder`  | 任意 | `string`          | `1`                                        | 連載の順番                                                        |
 
 ### 固定ページ (`src/content/pages/*.md|*.mdx`) の項目
 
