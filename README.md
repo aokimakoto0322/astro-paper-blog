@@ -161,11 +161,20 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 ## Docker初期環境構築
 
 1. パッケージのインストール（node_modulesのインストール）  
-   `docker compose run --rm app npm install`
+   `docker compose run --rm app sh -c "corepack enable && pnpm install"`
 2. コンテナの起動  
    `docker compose up -d`
 3. 起動確認  
    `http://localhost:4321/`
+
+## Lintエラー修正
+
+- `pnpm run format`
+
+## プライグインのインストール
+
+- `pnpm install [プラグイン名]`
+  - dockerコンテナ内で実行する
 
 ## コード整形
 
@@ -200,6 +209,8 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 | `canonicalURL` | 任意 | `string`          | `https://example.com/posts/my-first-post/` | 正規URL                                                           |
 | `hideEditPost` | 任意 | `boolean`         | `false`                                    | 記事ページの編集リンクを非表示                                    |
 | `timezone`     | 任意 | `string`          | `Asia/Tokyo`                               | 日付表示用タイムゾーン                                            |
+| `series`       | 任意 | `string`          | `series1`                                  | もしし連載記事を書きたい場合のシリーズ名                          |
+| `seriesOrder`  | 任意 | `string`          | `1`                                        | 連載の順番                                                        |
 
 ### 固定ページ (`src/content/pages/*.md|*.mdx`) の項目
 
