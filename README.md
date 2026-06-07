@@ -161,11 +161,15 @@ Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contrib
 ## Docker初期環境構築
 
 1. パッケージのインストール（node_modulesのインストール）  
-   `docker compose run --rm app npm install`
+   `docker compose run --rm app sh -c "corepack enable && pnpm install"`
 2. コンテナの起動  
    `docker compose up -d`
 3. 起動確認  
    `http://localhost:4321/`
+
+## プライグインのインストール
+- `pnpm install [プラグイン名]`
+  - dockerコンテナ内で実行する
 
 ## コード整形
 
