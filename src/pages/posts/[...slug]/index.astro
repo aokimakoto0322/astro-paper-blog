@@ -14,6 +14,7 @@ import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@/config";
+import SeriesNav from "@/components/SeriesNav.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -154,7 +155,17 @@ const displayImage = ogImageUrl;
         "prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)",
       ]}
     >
+      {
+        post.data.series && (
+          <SeriesNav series={post.data.series} currentTitle={title} />
+        )
+      }
       <Content />
+      {
+        post.data.series && (
+          <SeriesNav series={post.data.series} currentTitle={title} />
+        )
+      }
     </article>
 
     <hr class="border-border my-7" />
