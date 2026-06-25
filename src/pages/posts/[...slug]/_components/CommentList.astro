@@ -1,0 +1,89 @@
+---
+const tsvUrl = import.meta.env.PUBLIC_SHEET_TSV_URL;
+
+interface CommentItem {
+  timestamp: string;
+  articleTitle: string;
+  name: string;
+  content: string;
+  approved: boolean;
+}
+
+let comments: CommentItem[] = [];
+
+try {
+  const response = await fetch(tsvUrl);
+  if (response.ok) {
+    const text = await response.text();
+
+    // TSVデータを1行ずつに分解
+    const rows = text.split("\n").map(row => row.split("\t"));
+
+    comments = rows
+      .slice(1)
+      .map(row => {
+        const rawApproved = row[4] ? row[4].trim() : "";
+        const isApproved = rawApproved === "TRUE";
+
+        return {
+          timestamp: row[0] || "",
+          articleTitle: row[1] || "",
+          name: row[2] || "",
+          content: row[3] || "",
+          approved: isApproved,
+        };
+      })
+      .filter(comment => comment.name);
+  }
+} catch (error) {
+  console.error("コメントの取得に失敗しました:", error);
+}
+
+const { currentArticleTitle } = Astro.props;
+
+// 💡 抽出したコメントの配列の最後に「.reverse()」をくっつけます……っ！
+const filteredComments = comments
+  .filter(c => {
+    const isTitleMatch = c.articleTitle?.trim() === currentArticleTitle?.trim();
+    return isTitleMatch && c.approved === true;
+  })
+  .reverse();
+---
+
+<div class="comment-list-section mt-12 w-full">
+  <h3 class="text-skin-accent mb-6 text-lg font-bold">
+    💬 コメント一覧 ({filteredComments.length}件)
+  </h3>
+
+  {
+    filteredComments.length === 0 ? (
+      <p class="text-skin-base mb-6 text-sm italic opacity-70">
+        まだコメントはありません。最初のコメントを書いてみませんか？🌸
+      </p>
+    ) : (
+      <ul class="mb-8 list-none space-y-6 p-0">
+        {filteredComments.map(comment => (
+          <li class="border-skin-line border-b pb-4 last:border-none last:pb-0">
+            <div class="mb-2 flex items-center justify-between">
+              <span class="text-skin-accent text-sm font-bold">
+                {comment.name} さん
+              </span>
+              <span class="text-skin-base text-xs opacity-60">
+                {comment.timestamp}
+              </span>
+            </div>
+            <p class="text-skin-base text-sm leading-relaxed whitespace-pre-wrap opacity-90">
+              {comment.content}
+            </p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>
+
+<style>
+  .comment-list-section {
+    margin-top: 2rem;
+  }
+</style>
