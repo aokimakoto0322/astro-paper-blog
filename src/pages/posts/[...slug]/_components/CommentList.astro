@@ -1,92 +1,121 @@
 ---
+// 全体が static なので、ビルド時は枠組みだけを作って、中身はブラウザで動的に取得します！
 const tsvUrl = import.meta.env.PUBLIC_SHEET_TSV_URL;
-
-interface CommentItem {
-  timestamp: string;
-  articleTitle: string;
-  name: string;
-  content: string;
-  approved: boolean;
-}
-
-let comments: CommentItem[] = [];
-
-const response = await fetch(tsvUrl);
-if (response.ok) {
-  const text = await response.text();
-
-  // 💡 Windowsの改行コード(\r\n)による末尾のゴミを削除
-  const cleanText = text.replace(/\r/g, "");
-  const rows = cleanText.split("\n").map(row => row.split("\t"));
-
-  comments = rows
-    .slice(1)
-    .map((row, idx) => {
-      // 💡 各列のデータを取得し、前後の不要な空白を完璧にトリム
-      const timestamp = row[0] ? row[0].trim() : "";
-      const articleTitle = row[1] ? row[1].trim() : "";
-      const name = row[2] ? row[2].trim() : "";
-      const content = row[3] ? row[3].trim() : "";
-
-      // 💡 E列（5番目）の承認フラグを厳格にチェック
-      const rawApproved = row[4] ? row[4].trim().toUpperCase() : "";
-      const isApproved = rawApproved === "TRUE";
-
-      return {
-        timestamp,
-        articleTitle,
-        name,
-        content,
-        approved: isApproved,
-      };
-    })
-    // 💡 名前と記事タイトルが両方ちゃんと存在する「有効な行」だけを厳選して、空行を完全シャットアウト
-    .filter(comment => comment.name && comment.articleTitle);
-}
-
 const { currentArticleTitle } = Astro.props;
-const targetTitle = currentArticleTitle?.trim() || "";
-
-// 💡 画面に流すコメントを「タイトル一致」かつ「承認が厳格に true」の条件で絞り込み
-const filteredComments = comments
-  .filter(c => {
-    const isTitleMatch = c.articleTitle === targetTitle;
-    return isTitleMatch && c.approved === true;
-  })
-  .reverse();
 ---
 
 <div class="comment-list-section mt-12 w-full">
   <h3 class="text-skin-accent mb-6 text-lg font-bold">
-    💬 コメント一覧 ({filteredComments.length}件)
+    💬 コメント一覧 (<span id="comment-count">0</span>件)
   </h3>
 
-  {
-    filteredComments.length === 0 ? (
-      <p class="text-skin-base mb-6 text-sm italic opacity-70">
-        まだコメントはありません。最初のコメントを書いてみませんか？🌸
-      </p>
-    ) : (
-      <ul class="mb-8 list-none space-y-6 p-0">
-        {filteredComments.map(comment => (
-          <li class="border-skin-line border-b pb-4 last:border-none last:pb-0">
-            <div class="mb-2 flex items-center justify-between">
-              <span class="text-skin-accent text-sm font-bold">
-                {comment.name} さん
-              </span>
-              <span class="text-skin-base text-xs opacity-60">
-                {comment.timestamp}
-              </span>
-            </div>
-            <p class="text-skin-base text-sm leading-relaxed whitespace-pre-wrap opacity-90">
-              {comment.content}
-            </p>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  <div id="comment-loading" class="text-sm italic opacity-70">
+    最新のコメントを読み込んでいます...🌸
+  </div>
+
+  <ul id="comment-container" class="mb-8 hidden list-none space-y-6 p-0"></ul>
+
+  <p
+    id="comment-empty"
+    class="text-skin-base mb-6 hidden text-sm italic opacity-70"
+  >
+    まだコメントはありません。最初のコメントを書いてみませんか？🌸
+  </p>
 </div>
+
+<script define:vars={{ tsvUrl, currentArticleTitle }}>
+  // 💡 ここに書かれた処理は、読者さんのブラウザの上で「アクセスされるたびに毎回リアルタイムに」実行される
+  async function loadComments() {
+    const container = document.getElementById("comment-container");
+    const loading = document.getElementById("comment-loading");
+    const empty = document.getElementById("comment-empty");
+    const countEl = document.getElementById("comment-count");
+
+    // ガード：もし環境変数が空っぽなら何もしない
+    if (!tsvUrl) {
+      loading.textContent = "コメント用URLが設定されていませんぅ...💦";
+      return;
+    }
+
+    try {
+      const response = await fetch(tsvUrl);
+      if (!response.ok) throw new Error("Fetch failed");
+
+      const text = await response.text();
+      // 💡 Windowsの改行コード（\r）のゴミをここでお掃除します🌸
+      const cleanText = text.replace(/\r/g, "");
+      const rows = cleanText.split("\n").map(row => row.split("\t"));
+
+      const comments = rows
+        .slice(1)
+        .map(row => {
+          const rawApproved = row[4] ? row[4].trim().toUpperCase() : "";
+          return {
+            timestamp: row[0]?.trim() || "",
+            articleTitle: row[1]?.trim() || "",
+            name: row[2]?.trim() || "",
+            content: row[3]?.trim() || "",
+            approved: rawApproved === "TRUE",
+          };
+        })
+        // 💡 「名前がある」「今の記事タイトルと一致する」「承認がTRUE」の3つで厳格にフィルターします！
+        .filter(
+          c =>
+            c.name &&
+            c.articleTitle === currentArticleTitle?.trim() &&
+            c.approved === true
+        )
+        .reverse();
+
+      // ローディング表示を消します
+      loading.classList.add("hidden");
+      countEl.textContent = comments.length;
+
+      if (comments.length === 0) {
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      // 🌸 安全にエスケープしつつ、HTMLを組み立てて画面にパチッと流し込みます！
+      container.innerHTML = comments
+        .map(
+          c => `
+        <li class="border-skin-line border-b pb-4 last:border-none last:pb-0">
+          <div class="mb-2 flex items-center justify-between">
+            <span class="text-skin-accent text-sm font-bold">${escapeHtml(c.name)} さん</span>
+            <span class="text-skin-base text-xs opacity-60">${escapeHtml(c.timestamp)}</span>
+          </div>
+          <p class="text-skin-base text-sm leading-relaxed whitespace-pre-wrap opacity-90">${escapeHtml(c.content)}</p>
+        </li>
+      `
+        )
+        .join("");
+
+      container.classList.remove("hidden");
+    } catch (error) {
+      console.error("コメントの取得に失敗しました:", error);
+      loading.textContent = "コメントの読み込みに失敗しました💦";
+    }
+  }
+
+  // 🔒 セキュリティ（XSS対策）のためのエスケープ関数
+  function escapeHtml(str) {
+    return str.replace(
+      /[&<>"']/g,
+      m =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[m]
+    );
+  }
+
+  // ページが読み込まれたら即実行します🌸
+  loadComments();
+</script>
 
 <style>
   .comment-list-section {
