@@ -11,41 +11,37 @@ interface CommentItem {
 
 let comments: CommentItem[] = [];
 
-try {
-  const response = await fetch(tsvUrl);
-  if (response.ok) {
-    const text = await response.text();
+const response = await fetch(tsvUrl);
+if (response.ok) {
+  const text = await response.text();
 
-    // 💡 Windowsの改行コード(\r\n)による末尾のゴミを削除
-    const cleanText = text.replace(/\r/g, "");
-    const rows = cleanText.split("\n").map(row => row.split("\t"));
+  // 💡 Windowsの改行コード(\r\n)による末尾のゴミを削除
+  const cleanText = text.replace(/\r/g, "");
+  const rows = cleanText.split("\n").map(row => row.split("\t"));
 
-    comments = rows
-      .slice(1)
-      .map((row, idx) => {
-        // 💡 各列のデータを取得し、前後の不要な空白を完璧にトリム
-        const timestamp = row[0] ? row[0].trim() : "";
-        const articleTitle = row[1] ? row[1].trim() : "";
-        const name = row[2] ? row[2].trim() : "";
-        const content = row[3] ? row[3].trim() : "";
+  comments = rows
+    .slice(1)
+    .map((row, idx) => {
+      // 💡 各列のデータを取得し、前後の不要な空白を完璧にトリム
+      const timestamp = row[0] ? row[0].trim() : "";
+      const articleTitle = row[1] ? row[1].trim() : "";
+      const name = row[2] ? row[2].trim() : "";
+      const content = row[3] ? row[3].trim() : "";
 
-        // 💡 E列（5番目）の承認フラグを厳格にチェック
-        const rawApproved = row[4] ? row[4].trim().toUpperCase() : "";
-        const isApproved = rawApproved === "TRUE";
+      // 💡 E列（5番目）の承認フラグを厳格にチェック
+      const rawApproved = row[4] ? row[4].trim().toUpperCase() : "";
+      const isApproved = rawApproved === "TRUE";
 
-        return {
-          timestamp,
-          articleTitle,
-          name,
-          content,
-          approved: isApproved,
-        };
-      })
-      // 💡 名前と記事タイトルが両方ちゃんと存在する「有効な行」だけを厳選して、空行を完全シャットアウト
-      .filter(comment => comment.name && comment.articleTitle);
-  }
-} catch (error) {
-  console.error("コメントの取得に失敗しました:", error);
+      return {
+        timestamp,
+        articleTitle,
+        name,
+        content,
+        approved: isApproved,
+      };
+    })
+    // 💡 名前と記事タイトルが両方ちゃんと存在する「有効な行」だけを厳選して、空行を完全シャットアウト
+    .filter(comment => comment.name && comment.articleTitle);
 }
 
 const { currentArticleTitle } = Astro.props;
