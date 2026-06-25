@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const formId = import.meta.env.PUBLIC_FORM_ID;
+const entryTitle = import.meta.env.PUBLIC_ENTRY_TITLE;
+const entryName = import.meta.env.PUBLIC_ENTRY_NAME;
+const entryContent = import.meta.env.PUBLIC_ENTRY_CONTENT;
+---
+
+<div
+  id="comment_container"
+  class="border-skin-line text-skin-base mt-12 w-full rounded-xl border bg-amber-50/20 p-6 transition-colors duration-200 dark:bg-slate-900/40"
+>
+  <h3 class="border-skin-line text-md text-skin-accent mb-4 font-bold">
+    ✍️ コメントを書き込む
+  </h3>
+
+  <form
+    action={`https://docs.google.com/forms/u/0/d/e/${formId}/formResponse`}
+    method="POST"
+    target="hidden_iframe"
+    id="comment_form"
+    class="space-y-4"
+  >
+    {
+      /* 記事のタイトルを裏で自動送信して、どの記事のコメントかシート側で紐付け */
+    }
+    <input type="hidden" name={entryTitle} value={title} />
+
+    <div>
+      <label class="mb-1 block text-xs font-bold opacity-80">名前</label>
+      <input
+        type="text"
+        name={entryName}
+        required
+        class="border-skin-line bg-skin-fill text-skin-base focus:border-skin-accent w-full rounded border p-2 outline-none"
+      />
+    </div>
+
+    <div>
+      <label class="mb-1 block text-xs font-bold opacity-80">コメント内容</label
+      >
+      <textarea
+        name={entryContent}
+        rows="3"
+        required
+        class="border-skin-line bg-skin-fill text-skin-base focus:border-skin-accent w-full rounded border p-2 outline-none"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="bg-skin-fill text-skin-base border-skin-line w-full rounded border px-4 py-2 font-bold transition-all duration-200 hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-500 focus:ring-2 focus:ring-blue-500/40 focus:outline-none active:border-blue-400 active:bg-blue-500/20 active:text-blue-400"
+    >
+      コメントを送信する
+    </button>
+  </form>
+
+  {/* 送信した後にGoogleのダサい画面に飛ばさないための身代わりiframe */}
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+  ></iframe>
+
+  <div
+    id="success_message"
+    class="mt-4 hidden rounded border border-emerald-500 bg-emerald-500/10 p-3 text-center text-sm font-bold text-emerald-500"
+  >
+    ✨ 送信されました！承認されたら公開されます ✨
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+  // 送信が完了したらフォームをリセットして、メッセージを優しく出すスクリプト
+  const form = document.getElementById("comment_form");
+  const msg = document.getElementById("success_message");
+  if (form && msg) {
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        form.reset();
+        msg.classList.remove("hidden");
+      }, 500);
+    });
+  }
+</script>
