@@ -93,7 +93,6 @@ const { currentArticleTitle } = Astro.props;
 
       container.classList.remove("hidden");
     } catch (error) {
-      console.error("コメントの取得に失敗しました:", error);
       loading.textContent = "コメントの読み込みに失敗しました💦";
     }
   }
